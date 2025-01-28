@@ -115,6 +115,8 @@
           </div></div>
       </Disclosure>  
 </div></div>
+
+    
 </template>
 
 <script setup>
@@ -133,6 +135,7 @@ import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuIt
 import { MagnifyingGlassIcon } from '@heroicons/vue/20/solid'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/vue/24/outline'
 import Dashboard from '@/Pages/Dashboard.vue';
+import Edit from '@/Pages/Profile/Edit.vue';
 
 const user = {
   name: 'props.auth.user.name',
@@ -140,16 +143,4 @@ const user = {
   imageUrl:
     'https://www.nmtechnology.us/build/assets/nm-logo-rmbg-f8bd446d.webp',
 }
-const navigation = [
-  { name: 'Dashboard', href: '/dashboard', current: true },
-  { name: 'Team', href: '#', current: false },
-  { name: 'Projects', href: '#', current: false },
-  { name: 'Calendar', href: '#', current: false },
-  { name: 'Reports', href: '#', current: false },
-]
-const userNavigation = [
-  { name: 'Your Profile', href: 'profileEditUrl' },
-  { name: 'Settings', href: '#' },
-  { name: 'Sign out', href: '#' },
-]
 </script>

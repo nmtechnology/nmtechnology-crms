@@ -116,7 +116,7 @@
         </Disclosure>
         <header class="py-10">
           <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <h1 class="text-3xl font-bold tracking-tight text-accent">Dashboard</h1><CurrentTime class="text-white"></CurrentTime>
+            <h1 class="text-3xl font-bold tracking-tight text-accent">Service Dashboard</h1><CurrentTime class="text-white"></CurrentTime>
           </div>
         </header>
       </div>
@@ -126,7 +126,7 @@
           <div class="rounded-lg bg-gray-800 px-5 py-6 shadow sm:px-6">
             <!-- startcalendar -->
             <div>
-    <h2 class="text-base font-semibold text-accent">Upcoming meetings</h2>
+    <h4 class="text-base font-semibold text-white">Upcoming meetings</h4>
     <div class="lg:grid lg:grid-cols-12 lg:gap-x-16">
       <div class="mt-10 text-center lg:col-start-8 lg:col-end-13 lg:row-start-1 lg:mt-9 xl:col-start-9">
         <div class="flex items-center text-accent">
@@ -134,33 +134,34 @@
             <span class="sr-only">Previous month</span>
             <ChevronLeftIcon class="size-5" aria-hidden="true" />
           </button>
-          <div class="flex-auto text-sm font-semibold">January</div>
+          <div class="flex-auto text-3xl font-semibold">January</div>
           <button type="button" class="-m-1.5 flex flex-none items-center justify-center p-1.5 text-gray-400 hover:text-gray-500">
             <span class="sr-only">Next month</span>
             <ChevronRightIcon class="size-5" aria-hidden="true" />
           </button>
         </div>
-        <div class="mt-6 grid grid-cols-7 text-xs/6 text-accent">
-          <div>M</div>
-          <div>T</div>
-          <div>W</div>
-          <div>T</div>
-          <div>F</div>
-          <div>S</div>
-          <div>S</div>
+        <div class="mt-6 grid grid-cols-7 text-lg/6 text-accent">
+          <div class="text-success">M</div>
+          <div class="text-success">T</div>
+          <div class="text-success">W</div>
+          <div class="text-success">T</div>
+          <div class="text-success">F</div>
+          <div class="text-white">$</div>
+          <div class="text-white">$</div>
         </div>
         <div class="isolate mt-2 grid grid-cols-7 gap-px rounded-lg bg-gray-200 text-sm shadow ring-1 ring-gray-200">
           <button v-for="(day, dayIdx) in days" :key="day.date" type="button" :class="['py-1.5 hover:bg-gray-100 focus:z-10', day.isCurrentMonth ? 'bg-gray-400' : 'bg-gray-500', (day.isSelected || day.isToday) && 'font-semibold', day.isSelected && 'text-white', !day.isSelected && day.isCurrentMonth && !day.isToday && 'text-gray-900', !day.isSelected && !day.isCurrentMonth && !day.isToday && 'text-gray-400', day.isToday && !day.isSelected && 'text-indigo-600', dayIdx === 0 && 'rounded-tl-lg', dayIdx === 6 && 'rounded-tr-lg', dayIdx === days.length - 7 && 'rounded-bl-lg', dayIdx === days.length - 1 && 'rounded-br-lg']">
             <time :datetime="day.date" :class="['mx-auto flex size-7 items-center justify-center rounded-full', day.isSelected && day.isToday && 'bg-main', day.isSelected && !day.isToday && 'bg-accent']">{{ day.date.split('-').pop().replace(/^0/, '') }}</time>
           </button>
         </div>
-        <button type="button" class="mt-8 w-full rounded-md bg-accent px-3 py-2 text-sm font-semibold text-white shadow hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Add event</button>
+        <button type="button" class="mt-8 w-full rounded-md bg-success px-3 py-2 text-2xl font-semibold text-white shadow hover:bg-success focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Add Work Order</button>
+        <Modal :show="showModal" @close="showModal = false" />
       </div>
       <ol class="mt-4 divide-y divide-gray-100 text-sm/6 lg:col-span-7 xl:col-span-8">
         <li v-for="meeting in meetings" :key="meeting.id" class="relative flex gap-x-6 py-6 xl:static">
           <img :src="meeting.imageUrl" alt="" class="size-14 flex-none rounded-full" />
           <div class="flex-auto">
-            <h3 class="pr-10 font-semibold text-gray-900 xl:pr-0">{{ meeting.name }}</h3>
+            <h3 class="pr-10 font-semibold text-accent xl:pr-0">{{ meeting.name }}</h3>
             <dl class="mt-2 flex flex-col text-gray-500 xl:flex-row">
               <div class="flex items-start gap-x-3">
                 <dt class="mt-0.5">
@@ -189,13 +190,13 @@
             </div>
 
             <transition enter-active-class="transition ease-out duration-100" enter-from-class="transform opacity-0 scale-95" enter-to-class="transform opacity-100 scale-100" leave-active-class="transition ease-in duration-75" leave-from-class="transform opacity-100 scale-100" leave-to-class="transform opacity-0 scale-95">
-              <MenuItems class="absolute right-0 z-10 mt-2 w-36 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-none">
+              <MenuItems class="absolute right-0 z-10 mt-2 w-36 origin-top-right rounded-md bg-gray-700 shadow-lg ring-1 ring-black/5 focus:outline-none">
                 <div class="py-1">
                   <MenuItem v-slot="{ active }">
-                    <a href="#" :class="[active ? 'bg-gray-100 text-gray-900 outline-none' : 'text-gray-700', 'block px-4 py-2 text-sm']">Edit</a>
+                    <a href="#" :class="[active ? 'bg-gray-600 text-white outline-none' : 'text-white', 'block px-4 py-2 text-sm']">Edit</a>
                   </MenuItem>
                   <MenuItem v-slot="{ active }">
-                    <a href="#" :class="[active ? 'bg-gray-100 text-gray-900 outline-none' : 'text-gray-700', 'block px-4 py-2 text-sm']">Cancel</a>
+                    <a href="#" :class="[active ? 'bg-gray-600 text-white outline-none' : 'text-white', 'block px-4 py-2 text-sm']">Cancel</a>
                   </MenuItem>
                 </div>
               </MenuItems>
@@ -219,13 +220,16 @@
   import DropdownLink from '@/Components/DropdownLink.vue';
   import CurrentTime from '@/Components/CurrentTime.vue';
   import { Link } from '@inertiajs/vue3';
+  import Modal from '@/Components/Modal.vue';
+
+const showModal = ref(false);
   
   const showingNavigationDropdown = ref(false);
   
   import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
   import { MagnifyingGlassIcon } from '@heroicons/vue/20/solid'
   import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/vue/24/outline'
-  import {CalendarIcon, ChevronLeftIcon, ChevronRightIcon, EllipsisHorizontalIcon, MapPinIcon} from '@heroicons/vue/20/solid'
+  import { CalendarIcon, ChevronLeftIcon, ChevronRightIcon, EllipsisHorizontalIcon, MapPinIcon} from '@heroicons/vue/20/solid'
 
   const user = {
     name: 'props.auth.user.name',
@@ -236,7 +240,7 @@
   const navigation = [
     { name: 'Dashboard', href: '/dashboard', current: true },
     { name: 'Team', href: '#', current: false },
-    { name: 'Projects', href: '#', current: false },
+    { name: 'Work Orders', href: '#', current: false },
     { name: 'Calendar', href: '#', current: false },
     { name: 'Reports', href: '#', current: false },
   ]
