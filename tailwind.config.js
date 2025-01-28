@@ -2,21 +2,34 @@ import defaultTheme from 'tailwindcss/defaultTheme';
 import forms from '@tailwindcss/forms';
 
 /** @type {import('tailwindcss').Config} */
-export default {
-    content: [
-        './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php',
-        './storage/framework/views/*.php',
-        './resources/views/**/*.blade.php',
-        './resources/js/**/*.vue',
-    ],
-
-    theme: {
-        extend: {
-            fontFamily: {
-                sans: ['Figtree', ...defaultTheme.fontFamily.sans],
-            },
+module.exports = {
+  content: [
+    './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php',
+    './storage/framework/views/*.php',
+    './resources/views/**/*.blade.php',
+    './resources/js/**/*.vue',
+  ],
+  theme: {
+    daisyui: {
+      themes: [
+        {
+          mytheme: {
+            "button": "#ffc104",
+            "main-color": "#adff05",
+            "accent": "#ec4899",
+            "neutral": "#fb923c",
+            "base-100": "#1f2937",
+            "info": "#7c3aed",
+            "success": "#22c55e",
+            "warning": "#f97316",
+            "error": "#b91c1c",
+          },
         },
+      ],
     },
-
-    plugins: [forms],
+    fontFamily: {
+      sans: ['roboto', ...defaultTheme.fontFamily.sans],
+    },
+  },
+  plugins: [require('daisyui'), forms],
 };

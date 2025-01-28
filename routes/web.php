@@ -4,6 +4,9 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Http\Controllers\TimeController;
+
+Route::get('/api/current-time', [TimeController::class, 'getCurrentTime']); // fix the time later`
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
