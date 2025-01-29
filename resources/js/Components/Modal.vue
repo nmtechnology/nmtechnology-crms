@@ -9,7 +9,7 @@
             <div class="sm:flex sm:items-start">
               <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
                 <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">
-                  Add Work Order
+                  New Work Order
                 </h3>
                 <div class="mt-2">
                   <form @submit.prevent="submitForm">
@@ -35,7 +35,7 @@
                     </div>
                     <div class="mt-5 sm:mt-6">
                       <button type="submit" class="inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 bg-success text-base font-medium text-white hover:bg-success focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-success sm:text-lg">
-                        Save
+                        Submit
                       </button>
                     </div>
                   </form>

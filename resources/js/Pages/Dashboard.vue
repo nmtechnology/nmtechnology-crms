@@ -154,9 +154,16 @@
             <time :datetime="day.date" :class="['mx-auto flex size-7 items-center justify-center rounded-full', day.isSelected && day.isToday && 'bg-main', day.isSelected && !day.isToday && 'bg-accent']">{{ day.date.split('-').pop().replace(/^0/, '') }}</time>
           </button>
         </div>
-        <button type="button" class="mt-8 w-full rounded-md bg-success px-3 py-2 text-2xl font-semibold text-white shadow hover:bg-success focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Add Work Order</button>
-        <Modal :show="showModal" @close="showModal = false" />
+        
+        <!-- MODAL -->
+        <button @click="addWorkOrder" class="btn btn-lg btn-success mt-8 text-white text-2xl shadow hover:bg-success focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Add Work Order</button>
+        
+        <div v-for="(workOrder, index) in workOrders" :key="index">
+          <Modal :show="workOrder.showModal" @close="closeModal(index)" :workOrder="workOrder"></Modal>
+        </div>
       </div>
+
+      <!-- Modal ends -->
       <ol class="mt-4 divide-y divide-gray-100 text-sm/6 lg:col-span-7 xl:col-span-8">
         <li v-for="meeting in meetings" :key="meeting.id" class="relative flex gap-x-6 py-6 xl:static">
           <img :src="meeting.imageUrl" alt="" class="size-14 flex-none rounded-full" />
@@ -214,30 +221,31 @@
   </template>
   
   <script setup>
-  import { ref } from 'vue';
-  import ApplicationLogo from '@/Components/ApplicationLogo.vue';
-  import Dropdown from '@/Components/Dropdown.vue';
-  import DropdownLink from '@/Components/DropdownLink.vue';
-  import CurrentTime from '@/Components/CurrentTime.vue';
-  import { Link } from '@inertiajs/vue3';
-  import Modal from '@/Components/Modal.vue';
+import { ref } from 'vue';
+import ApplicationLogo from '@/Components/ApplicationLogo.vue';
+import Dropdown from '@/Components/Dropdown.vue';
+import DropdownLink from '@/Components/DropdownLink.vue';
+import CurrentTime from '@/Components/CurrentTime.vue';
+import { Link } from '@inertiajs/vue3';
+import Modal from '@/Components/Modal.vue';
 
 const showModal = ref(false);
   
-  const showingNavigationDropdown = ref(false);
+const showingNavigationDropdown = ref(false);
   
-  import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
-  import { MagnifyingGlassIcon } from '@heroicons/vue/20/solid'
-  import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/vue/24/outline'
-  import { CalendarIcon, ChevronLeftIcon, ChevronRightIcon, EllipsisHorizontalIcon, MapPinIcon} from '@heroicons/vue/20/solid'
-
-  const user = {
-    name: 'props.auth.user.name',
-    email: 'tom@example.com',
-    imageUrl:
-      'https://www.nmtechnology.us/build/assets/nm-logo-rmbg-f8bd446d.webp',
+import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
+import { MagnifyingGlassIcon } from '@heroicons/vue/20/solid'
+import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/vue/24/outline'
+import { CalendarIcon, ChevronLeftIcon, ChevronRightIcon, EllipsisHorizontalIcon, MapPinIcon} from '@heroicons/vue/20/solid'
+  
+const user = {
+  name: 'props.auth.user.name',
+  email: 'tom@example.com',
+  imageUrl:
+    'https://www.nmtechnology.us/build/assets/nm-logo-rmbg-f8bd446d.webp',
   }
-  const navigation = [
+  
+const navigation = [
     { name: 'Dashboard', href: '/dashboard', current: true },
     { name: 'Team', href: '#', current: false },
     { name: 'Work Orders', href: '#', current: false },
@@ -306,5 +314,18 @@ const days = [
   { date: '2022-02-05' },
   { date: '2022-02-06' },
 ]
+const workOrders = ref([]);
+
+const addWorkOrder = () => {
+  workOrders.value.push({
+    id: Date.now(), // Unique ID for each work order
+    title: '',
+    description: '',
+    scheduled_at: '',
+    images: [],
+    notes: '',
+    showModal: true,
+  });
+};
   </script>
   
