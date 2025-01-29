@@ -12,7 +12,7 @@ class WorkOrderController extends Controller
             'title' => 'required|string|max:255',
             'description' => 'required|string',
             'scheduled_at' => 'required|date',
-            'images.*' => 'nullable|file|mimes:jpg,jpeg,png,bmp,gif,svg,webp',
+            'images.*' => 'nullable|file|mimes:jpg,jpeg,png,bmp,gif,svg,webp,pdf,heic|max:2048',
             'notes' => 'nullable|string',
         ]);
 
@@ -36,5 +36,7 @@ class WorkOrderController extends Controller
         $workOrder->save();
 
         return response()->json(['message' => 'Work order created successfully']);
+
+        dd('store work order');
     }
 }

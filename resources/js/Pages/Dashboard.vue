@@ -240,7 +240,7 @@ import { CalendarIcon, ChevronLeftIcon, ChevronRightIcon, EllipsisHorizontalIcon
   
 const user = {
   name: 'props.auth.user.name',
-  email: 'tom@example.com',
+  email: 'props.auth.user.email',
   imageUrl:
     'https://www.nmtechnology.us/build/assets/nm-logo-rmbg-f8bd446d.webp',
   }
