@@ -14,7 +14,7 @@
                 <div class="mt-2">
                   <form @submit.prevent="submitForm">
                     <div class="mb-4">
-                      <label for="title" class="block text-sm font-medium text-accent bg-slate-700">Title</label>
+                      <label for="title" class="block text-sm font-medium text-accent bg-slate-700" placeholder="CCTV / WO####### / CITY">Title</label>
                       <input type="text" v-model="form.title" id="title" class="mt-1 block w-full rounded-md bg-slate-800 border-gray-300 shadow-sm focus:border-white focus:ring-white sm:text-sm" required>
                     </div>
                     <div class="mb-4">
@@ -55,6 +55,7 @@
   import { ref } from 'vue';
   import axios from 'axios';
 import CurrentTime from './CurrentTime.vue';
+import { useForm } from '@inertiajs/vue3';
   
   export default {
     props: {
@@ -65,7 +66,7 @@ import CurrentTime from './CurrentTime.vue';
     },
     emits: ['close'],
     setup(props, { emit }) {
-      const form = ref({
+      const form = useForm({
         title: '',
         description: '',
         scheduled_at: '',
@@ -77,27 +78,36 @@ import CurrentTime from './CurrentTime.vue';
         form.value.images = Array.from(event.target.files);
       };
   
-      const submitForm = async () => {
-        const formData = new FormData();
-        formData.append('title', form.value.title);
-        formData.append('description', form.value.description);
-        formData.append('scheduled_at', form.value.scheduled_at);
-        form.value.images.forEach((image, index) => {
-          formData.append(`images[${index}]`, image);
-        });
-        formData.append('notes', form.value.notes);
+      const submitForm = () => {
+      form.post('/api/work-orders', {
+        onSuccess: () => closeModal(),
+        onError: (errors) => {
+          console.error('Error creating work order. Please try again:', errors);
+        },
+      });
+    };
+
+      // const submitForm = async () => {
+      //   const formData = new FormData();
+      //   formData.append('title', form.value.title);
+      //   formData.append('description', form.value.description);
+      //   formData.append('scheduled_at', form.value.scheduled_at);
+      //   form.value.images.forEach((image, index) => {
+      //     formData.append(`images[${index}]`, image);
+      //   });
+      //   formData.append('notes', form.value.notes);
   
-        try {
-          await axios.post('/api/work-orders', formData, {
-            headers: {
-              'Content-Type': 'multipart/form-data',
-            },
-          });
-          closeModal();
-        } catch (error) {
-          console.error('Error creating work order. Please try again:', error);
-        }
-      };
+      //   try {
+      //     await axios.post('/api/work-orders', formData, {
+      //       headers: {
+      //         'Content-Type': 'multipart/form-data',
+      //       },
+      //     });
+      //     closeModal();
+      //   } catch (error) {
+      //     console.error('Error creating work order. Please try again:', error);
+      //   }
+      // };
   
       const closeModal = () => {
         emit('close');

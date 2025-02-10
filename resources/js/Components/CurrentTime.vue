@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p>Current Time: {{ currentTime }}</p>
+    <p class="text-white">Current Time: {{ currentTime }}</p>
   </div>
 </template>
 
@@ -13,9 +13,9 @@ export default {
   setup() {
     const currentTime = ref('');
 
-    const fetchCurrentTime = async () => {
+    const fetchCurrentTime = () => {
       try {
-        const response = await axios.get('/api/current-time');
+        const response = axios.get('/api/current-time');
         currentTime.value = response.data.current_time;
       } catch (error) {
         console.error('Error fetching current time:', error);
@@ -24,7 +24,8 @@ export default {
 
     onMounted(() => {
       fetchCurrentTime();
-      setInterval(fetchCurrentTime, 60000); // Refresh every minute
+      // setInterval(fetchCurrentTime, 60000); // Refresh every minute
+      setInterval(fetchCurrentTime, 1000); // Refresh every second
     });
 
     return {

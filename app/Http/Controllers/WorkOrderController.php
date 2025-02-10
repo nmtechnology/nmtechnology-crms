@@ -36,7 +36,5 @@ class WorkOrderController extends Controller
         $workOrder->save();
 
         return response()->json(['message' => 'Work order created successfully']);
-
-        dd('store work order');
     }
 }
