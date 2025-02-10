@@ -253,7 +253,7 @@ const navigation = [
     { name: 'Reports', href: '#', current: false },
   ]
   const userNavigation = [
-    { name: 'Your Profile', href: 'profileEditUrl' },
+    { name: 'Your Profile', href: 'profile.edit' },
     { name: 'Settings', href: '#' },
     { name: 'Sign out', href: '#' },
   ]

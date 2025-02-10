@@ -7,7 +7,7 @@ use Inertia\Inertia;
 use App\Http\Controllers\TimeController;
 use App\Http\Controllers\WorkOrderController;
 
-Route::get('/api/current-time', [TimeController::class, 'getCurrentTime']); // fix the time later`
+Route::get('/current-time', [TimeController::class, 'getCurrentTime']);
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -28,5 +28,19 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::post('/api/work-orders', [WorkOrderController::class, 'store']);
 });
+
+Route::get('/users', function () {
+    return new UserCollection(User::all());
+});
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('work-orders/store', [WorkOrderController::class, 'store']);
+    Route::get('/work-orders', [WorkOrderController::class, 'index']);
+    Route::get('/work-orders/{workOrder}', [WorkOrderController::class, 'show']);
+    Route::patch('/work-orders/{workOrder}', [WorkOrderController::class, 'update']);
+    Route::delete('/work-orders/{workOrder}', [WorkOrderController::class, 'destroy']);
+});
+  
+Route::get('/current-time', [TimeController::class, 'getCurrentTime']);
 
 require __DIR__.'/auth.php';

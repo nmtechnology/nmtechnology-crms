@@ -14,12 +14,12 @@
                 <div class="mt-2">
                   <form @submit.prevent="submitForm">
                     <div class="mb-4">
-                      <label for="title" class="block text-sm font-medium text-accent bg-slate-700" placeholder="CCTV / WO####### / CITY">Title</label>
-                      <input type="text" v-model="form.title" id="title" class="mt-1 block w-full rounded-md bg-slate-800 border-gray-300 shadow-sm focus:border-white focus:ring-white sm:text-sm" required>
+                      <label for="title" class="block text-sm font-medium text-accent bg-slate-700">Title</label>
+                      <input placeholder="CCTV / WO####### / CITY" type="text" v-model="form.title" id="title" class="mt-1 block w-full rounded-md bg-slate-800 border-gray-300 shadow-sm focus:border-white focus:ring-white sm:text-sm" required>
                     </div>
                     <div class="mb-4">
                       <label for="description" class="block text-sm font-medium text-accent">Description</label>
-                      <textarea v-model="form.description" id="description" class="mt-1 block w-full rounded-md bg-slate-800 border-gray-300 shadow-sm focus:border-white focus:ring-white sm:text-sm" required></textarea>
+                      <textarea v-model="form.description" id="description" placeholder="What is the Field Technician doing onsite?" class="mt-1 block w-full rounded-md bg-slate-800 border-gray-300 shadow-sm focus:border-white focus:ring-white sm:text-sm" required></textarea>
                     </div>
                     <div class="mb-4">
                       <label for="scheduled_at" class="block text-sm font-medium text-accent">Scheduled Date and Time</label>
@@ -31,7 +31,7 @@
                     </div>
                     <div class="mb-4">
                       <label for="notes" class="block text-sm font-medium text-accent">Notes</label>
-                      <textarea v-model="form.notes" id="notes" class="mt-1 block w-full rounded-md bg-slate-800 border-gray-300 shadow-sm focus:border-white focus:ring-white sm:text-sm"></textarea>
+                      <textarea v-model="form.notes" id="notes" placeholder="Field Technician Notes Go Here..." class="mt-1 block w-full rounded-md bg-slate-800 border-gray-300 shadow-sm focus:border-white focus:ring-white sm:text-sm"></textarea>
                     </div>
                         <div class="px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse sm:mt-6 rounded">
                             <button @click="closeModal" type="button" class="mt-6 w-full inline-flex justify-center rounded border border-gray-300 shadow-sm px-4 py-2 bg-red-600 font-medium text-white focus:outline-none focus:ring-2 focus:ring-offset-2 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
