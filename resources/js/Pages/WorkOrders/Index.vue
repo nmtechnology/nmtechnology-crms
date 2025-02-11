@@ -1,4 +1,5 @@
 <template>
+       <Head title="Index" />
     <div>
       <h1 class="text-2xl font-bold mb-4">Work Orders</h1>
       <ul>
@@ -23,7 +24,7 @@
       const fetchWorkOrders = async () => {
         try {
           const response = await axios.get('/api/work-orders');
-          workOrders.value = response.data;
+          workOrders.value = response.data.workOrders;
         } catch (error) {
           console.error('Error fetching work orders:', error);
         }

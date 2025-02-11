@@ -1,5 +1,5 @@
 <template>
-
+<Head title="Dashboard" />
   <div class="min-h-full">
       <div class="bg-base-100 pb-32">
         <Disclosure as="nav" class="border-b border-indigo-300/25 bg-base-100 lg:border-none" v-slot="{ open }">
@@ -120,7 +120,7 @@
             </button></alert>
           <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <h1 class="text-3xl font-bold tracking-tight text-accent">Service Dashboard</h1>
-            <CurrentTime class="text-white"></CurrentTime>
+            <!-- <CurrentTime class="text-white"></CurrentTime> -->
           </div>
         </header>
       </div>
@@ -235,6 +235,7 @@ import CurrentTime from '@/Components/CurrentTime.vue';
 import { Link } from '@inertiajs/vue3';
 import Modal from '@/Components/Modal.vue';
 import alert from '@/Components/alert.vue';
+import { router } from '@inertiajs/vue3';
 
 const showModal = ref(false);
 const closeModal = (index) => {
@@ -261,7 +262,7 @@ const user = {
 const navigation = [
     { name: 'Dashboard', href: '/dashboard', current: true },
     { name: 'Team', href: '#', current: false },
-    { name: 'Work Orders', href: '#', current: false },
+    { name: 'Work Orders', href: '/index', current: false },
     { name: 'Calendar', href: '#', current: false },
     { name: 'Reports', href: '#', current: false },
   ]
