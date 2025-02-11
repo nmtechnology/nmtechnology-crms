@@ -115,15 +115,21 @@
             </div></div>
         </Disclosure>
         <header class="py-10">
+          <alert class="alert" v-if="$page.props.flash.message">{{ $page.props.flash.message }}<button @click="closeFlashMessage" class="absolute top-0 right-0 mt-2 mr-2 text-black hover:text-gray-700">
+              <XMarkIcon class="size-6" aria-hidden="true" />
+            </button></alert>
           <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <h1 class="text-3xl font-bold tracking-tight text-accent">Service Dashboard</h1><CurrentTime class="text-white"></CurrentTime>
+            <h1 class="text-3xl font-bold tracking-tight text-accent">Service Dashboard</h1>
+            <CurrentTime class="text-white"></CurrentTime>
           </div>
         </header>
       </div>
   
       <main class="-mt-32">
+        
         <div class="mx-auto max-w-7xl px-4 pb-12 sm:px-6 lg:px-8">
           <div class="rounded-lg bg-gray-800 px-5 py-6 shadow sm:px-6">
+            
             <!-- startcalendar -->
             <div>
     <h4 class="text-base font-semibold text-white">Upcoming meetings</h4>
@@ -220,7 +226,7 @@
     </div>
   </template>
   
-  <script setup>
+<script setup>
 import { ref } from 'vue';
 import ApplicationLogo from '@/Components/ApplicationLogo.vue';
 import Dropdown from '@/Components/Dropdown.vue';
@@ -228,15 +234,22 @@ import DropdownLink from '@/Components/DropdownLink.vue';
 import CurrentTime from '@/Components/CurrentTime.vue';
 import { Link } from '@inertiajs/vue3';
 import Modal from '@/Components/Modal.vue';
+import alert from '@/Components/alert.vue';
 
 const showModal = ref(false);
-  
+const closeModal = (index) => {
+  workOrders.value[index].showModal = false;
+};
 const showingNavigationDropdown = ref(false);
+const closeFlashMessage = () => {
+  flashMessageVisible.value = false;
+};
   
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
 import { MagnifyingGlassIcon } from '@heroicons/vue/20/solid'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/vue/24/outline'
 import { CalendarIcon, ChevronLeftIcon, ChevronRightIcon, EllipsisHorizontalIcon, MapPinIcon} from '@heroicons/vue/20/solid'
+import Alert from '@/Components/alert.vue';
   
 const user = {
   name: 'props.auth.user.name',

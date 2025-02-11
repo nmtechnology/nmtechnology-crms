@@ -35,6 +35,6 @@ class WorkOrderController extends Controller
 
         $workOrder->save();
 
-        return response()->json(['message' => 'Work order created successfully']);
+        return redirect()->route('dashboard')->with('message', 'Work order created successfully');
     }
 }
