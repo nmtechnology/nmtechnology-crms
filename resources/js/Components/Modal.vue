@@ -15,7 +15,7 @@
                   <form @submit.prevent="submitForm">
                     <div class="mb-4">
                       <label for="title" class="block text-sm font-medium text-accent bg-slate-700">Title</label>
-                      <input placeholder="CCTV / WO####### / CITY" type="text" v-model="form.title" id="title" class="mt-1 block w-full rounded-md bg-slate-800 border-gray-300 shadow-sm focus:border-white focus:ring-white sm:text-sm" required>
+                      <input placeholder="CCTV / WO######-## / CITY" type="text" v-model="form.title" id="title" class="mt-1 block w-full rounded-md bg-slate-800 border-gray-300 shadow-sm focus:border-white focus:ring-white sm:text-sm" required>
                     </div>
                     <div class="mb-4">
                       <label for="description" class="block text-sm font-medium text-accent">Description</label>
@@ -86,28 +86,6 @@ import { useForm } from '@inertiajs/vue3';
         },
       });
     };
-
-      // const submitForm = async () => {
-      //   const formData = new FormData();
-      //   formData.append('title', form.value.title);
-      //   formData.append('description', form.value.description);
-      //   formData.append('scheduled_at', form.value.scheduled_at);
-      //   form.value.images.forEach((image, index) => {
-      //     formData.append(`images[${index}]`, image);
-      //   });
-      //   formData.append('notes', form.value.notes);
-  
-      //   try {
-      //     await axios.post('/api/work-orders', formData, {
-      //       headers: {
-      //         'Content-Type': 'multipart/form-data',
-      //       },
-      //     });
-      //     closeModal();
-      //   } catch (error) {
-      //     console.error('Error creating work order. Please try again:', error);
-      //   }
-      // };
   
       const closeModal = () => {
         emit('close');
