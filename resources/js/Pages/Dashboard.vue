@@ -1,5 +1,5 @@
 <template>
-<Head title="Dashboard" />
+<!-- <Head title="Dashboard" /> -->
   <div class="min-h-full">
       <div class="bg-base-100 pb-32">
         <Disclosure as="nav" class="border-b border-indigo-300/25 bg-base-100 lg:border-none" v-slot="{ open }">
@@ -235,7 +235,6 @@ import CurrentTime from '@/Components/CurrentTime.vue';
 import { Link } from '@inertiajs/vue3';
 import Modal from '@/Components/Modal.vue';
 import alert from '@/Components/alert.vue';
-import { router } from '@inertiajs/vue3';
 
 const showModal = ref(false);
 const closeModal = (index) => {
@@ -245,7 +244,20 @@ const showingNavigationDropdown = ref(false);
 const closeFlashMessage = () => {
   flashMessageVisible.value = false;
 };
-  
+const workOrders = ref([]);
+
+const addWorkOrder = () => {
+  workOrders.value.push({
+    id: Date.now(), // Unique ID for each work order
+    title: '',
+    description: '',
+    scheduled_at: '',
+    images: [],
+    notes: '',
+    showModal: true,
+  });
+};
+
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
 import { MagnifyingGlassIcon } from '@heroicons/vue/20/solid'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/vue/24/outline'
@@ -260,9 +272,9 @@ const user = {
   }
   
 const navigation = [
-    { name: 'Dashboard', href: '/dashboard', current: true },
+    { name: 'Dashboard', href: 'dashboard', current: true },
     { name: 'Team', href: '#', current: false },
-    { name: 'Work Orders', href: '/index', current: false },
+    { name: 'Work Orders', href: 'work-orders.index', current: false },
     { name: 'Calendar', href: '#', current: false },
     { name: 'Reports', href: '#', current: false },
   ]
@@ -328,18 +340,6 @@ const days = [
   { date: '2022-02-05' },
   { date: '2022-02-06' },
 ]
-const workOrders = ref([]);
 
-const addWorkOrder = () => {
-  workOrders.value.push({
-    id: Date.now(), // Unique ID for each work order
-    title: '',
-    description: '',
-    scheduled_at: '',
-    images: [],
-    notes: '',
-    showModal: true,
-  });
-};
   </script>
   
