@@ -16,7 +16,7 @@ module.exports = {
           mytheme: {
             "button": "#ffc104",
             "main-color": "#adff05",
-            "accent": "#ec4899",
+            "accent": "#adff05",
             "neutral": "#fb923c",
             "base-100": "#1f2937",
             "info": "#7c3aed",
