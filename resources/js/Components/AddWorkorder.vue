@@ -1,6 +1,6 @@
 <template>
     <!-- MODAL -->
-    <button @click="addWorkOrder" class="btn w-40 btn-lg btn-success mt-8 text-white text-2xl shadow hover:bg-success focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Add Work Order</button>
+    <button @click="addWorkOrder" class="btn w-60 btn-lg btn-outline mt-8 text-accent text-2xl shadow-2xl hover:bg-gray-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-600">Add Work Order</button>
     
     <div v-for="(workOrder, index) in workOrders" :key="index">
       <Modal :show="workOrder.showModal" @close="closeModal(index)" :workOrder="workOrder"></Modal>
