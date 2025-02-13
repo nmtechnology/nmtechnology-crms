@@ -2,8 +2,9 @@
     <div v-if="show" class="fixed inset-0 z-50 overflow-y-auto">
       <div class="flex items-center justify-center min-h-screen px-4">
         <div class="fixed inset-0 transition-opacity" aria-hidden="true">
-          <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
+          <div class="absolute inset-0 bg-gray-800 opacity-75"></div>
         </div>
+        
         <div class="bg-gray-700 rounded-lg overflow-hidden shadow-xl transform transition-all sm:max-w-lg sm:w-full">
           <div class="bg-gray-700 px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
             <div class="sm:flex sm:items-start">
@@ -12,6 +13,7 @@
                   New Work Order 
                 </h3>
                 <div class="mt-2">
+                  
                   <form @submit.prevent="submitForm">
                     <div class="mb-4">
                       <label for="title" class="block text-sm font-medium text-accent bg-slate-700">Title</label>
