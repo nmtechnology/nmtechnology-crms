@@ -70,9 +70,13 @@ import { Head, usePage } from '@inertiajs/vue3';
 import AddWorkorder from '@/Components/AddWorkorder.vue';
 import ApplicationLogo from '@/Components/ApplicationLogo.vue';
 import Alert from '@/Components/alert.vue';
+import AppLayout from '@/Layouts/AppLayout.vue';
+
+
 
 
 export default {
+  layout: AppLayout,
   name: 'WorkOrdersIndex',
   setup() {
     const { props } = usePage();
