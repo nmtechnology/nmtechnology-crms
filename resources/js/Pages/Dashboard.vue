@@ -1,7 +1,7 @@
 <template>
   <div>
     <AddWorkorder />
-    <div class="mt-10 text-center lg:col-start-8 lg:col-end-13 lg:row-start-1 lg:mt-9 xl:col-start-9">
+    <div class="text-center lg:col-start-8 lg:col-end-13 lg:row-start-1 lg:mt-9 xl:col-start-9">
       <Calendar :workOrders="workOrders" />
       <Index class="mt-40" />
     </div>
