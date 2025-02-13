@@ -15,6 +15,7 @@
   <script>
   import axios from 'axios';
   import { ref, onMounted } from 'vue';
+  import { Head } from '@inertiajs/vue3';
   
   export default {
     name: 'WorkOrdersIndex',

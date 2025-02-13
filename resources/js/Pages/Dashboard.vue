@@ -1,5 +1,5 @@
 <template>
-<!-- <Head title="Dashboard" /> -->
+<Head title="Dashboard" />
   <div class="min-h-full">
       <div class="bg-base-100 pb-32">
         <Disclosure as="nav" class="border-b border-indigo-300/25 bg-base-100 lg:border-none" v-slot="{ open }">
@@ -235,6 +235,7 @@ import CurrentTime from '@/Components/CurrentTime.vue';
 import { Link } from '@inertiajs/vue3';
 import Modal from '@/Components/Modal.vue';
 import alert from '@/Components/alert.vue';
+import { Head } from '@inertiajs/vue3';
 
 const showModal = ref(false);
 const closeModal = (index) => {
@@ -272,9 +273,9 @@ const user = {
   }
   
 const navigation = [
-    { name: 'Dashboard', href: 'dashboard', current: true },
+    { name: 'Dashboard', href: route('dashboard'), current: true },
     { name: 'Team', href: '#', current: false },
-    { name: 'Work Orders', href: 'work-orders.index', current: false },
+    { name: 'Work Orders', href: route('work-orders.index'), current: false },
     { name: 'Calendar', href: '#', current: false },
     { name: 'Reports', href: '#', current: false },
   ]
@@ -283,19 +284,17 @@ const navigation = [
     { name: 'Settings', href: '#' },
     { name: 'Sign out', href: '#' },
   ]
-  const meetings = [
-  {
-    id: 1,
-    date: 'January 10th, 2022',
-    time: '5:00 PM',
-    datetime: '2022-01-10T17:00',
-    name: 'Leslie Alexander',
-    imageUrl:
-      'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-    location: 'Starbucks',
-  },
+  const meetings = workOrders.value.map((workOrder, index) => ({
+    id: workOrder.id,
+    date: new Date(workOrder.scheduled_at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }),
+    time: new Date(workOrder.scheduled_at).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }),
+    datetime: workOrder.scheduled_at,
+    name: workOrder.title,
+    imageUrl: 'https://www.nmtechnology.us/build/assets/nm-logo-rmbg-f8bd446d.webp', // Placeholder image
+    location: workOrder.location || 'No location specified',
+  }));
   // More meetings...
-]
+
 const days = [
   { date: '2021-12-27' },
   { date: '2021-12-28' },
