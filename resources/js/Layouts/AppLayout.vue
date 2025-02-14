@@ -124,7 +124,6 @@
   import { MagnifyingGlassIcon } from '@heroicons/vue/20/solid';
   import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/vue/24/outline';
   
-  const { props } = usePage();
   
   const navigation = [
     { name: 'Dashboard', href: route('dashboard'), current: true },

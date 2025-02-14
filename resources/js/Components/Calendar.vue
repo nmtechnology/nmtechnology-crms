@@ -6,14 +6,12 @@
   </FullCalendar>
 </template>
   
-  <script>
-  import { ref } from 'vue';
-  import { CalendarIcon, ChevronLeftIcon, ChevronRightIcon, EllipsisHorizontalIcon, MapPinIcon } from '@heroicons/vue/20/solid';
-  import FullCalendar from '@fullcalendar/vue3'
+<script>
+import FullCalendar from '@fullcalendar/vue3'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import interactionPlugin from '@fullcalendar/interaction'
 
-
+        
 export default {
   components: {
     FullCalendar // make the <FullCalendar> tag available

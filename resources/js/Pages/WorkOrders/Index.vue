@@ -1,6 +1,6 @@
 <template>
   <Head title="Index" />
-  <div class="mt-20 px-4 sm:px-6 lg:px-8 w-full mx-auto">
+  <div class="mt-5 px-4 sm:px-6 lg:px-8 w-full mx-auto">
     <div class="sm:flex sm:items-center">
       <div class="sm:flex-auto">
         <h1 class="text-2xl font-bold mb-4 text-accent">Active Work Orders</h1>
@@ -89,6 +89,8 @@ export default {
     };
   },
 };
+
+
 </script>
 
 <style scoped>

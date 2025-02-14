@@ -7,7 +7,11 @@ use Inertia\Inertia;
 use App\Http\Controllers\TimeController;
 use App\Http\Controllers\WorkOrderController;
 
-Route::get('/current-time', [TimeController::class, 'getCurrentTime']);
+Route::get('/current-time', function () {
+    return response()->json([
+        'current_time' => now()->format('Y-m-d H:i:s')
+    ]);
+});
 
 Route::get('/', function () {
     return Inertia('Welcome', [
@@ -17,6 +21,12 @@ Route::get('/', function () {
         'phpVersion' => PHP_VERSION,
     ]);
 });
+
+// Add the new endpoint for GroqQuery
+use App\Http\Controllers\GroqController;
+
+
+Route::get('/api/groq/query', [GroqController::class, 'query']);
 
 Route::get('/dashboard', function () {
     sleep(2);

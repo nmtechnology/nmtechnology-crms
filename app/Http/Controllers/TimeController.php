@@ -1,15 +1,15 @@
 <?php
+
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Http\JsonResponse;
 
-class TimeController extends Controller
+class CurrentTimeController extends Controller
 {
-    public function getCurrentTime()
+    public function index(): JsonResponse
     {
-        $currentTime = DB::select('SELECT NOW() as current_time');
-        return response()->json(['current_time' => $currentTime[0]->current_time]);
+        return response()->json([
+            'current_time' => now()->format('Y-m-d H:i:s')
+        ]);
     }
 }

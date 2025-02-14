@@ -1,40 +1,38 @@
 <template>
   <div>
-    <p class="text-white">Current Time: {{ currentTime }}</p>
+    <p class="text-white text-lg">{{ formattedDateTime }}</p>
   </div>
 </template>
 
-<script>
-import { ref, onMounted } from 'vue';
-import axios from 'axios';
+<script setup>
+import { ref, computed, onMounted, onBeforeUnmount } from 'vue';
 
-export default {
-  name: 'CurrentTime',
-  setup() {
-    const currentTime = ref('');
+const currentTime = ref(new Date());
+let timer = null;
 
-    const fetchCurrentTime = () => {
-      try {
-        const response = axios.get('/api/current-time');
-        currentTime.value = response.data.current_time;
-      } catch (error) {
-        console.error('Error fetching current time:', error);
-      }
-    };
+const formattedDateTime = computed(() => {
+  return new Intl.DateTimeFormat('en-US', {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    hour: 'numeric',
+    minute: 'numeric',
+    second: 'numeric',
+    hour12: true
+  }).format(currentTime.value);
+});
 
-    onMounted(() => {
-      fetchCurrentTime();
-      // setInterval(fetchCurrentTime, 60000); // Refresh every minute
-      setInterval(fetchCurrentTime, 1000); // Refresh every second
-    });
-
-    return {
-      currentTime,
-    };
-  },
+const updateTime = () => {
+  currentTime.value = new Date();
 };
-</script>
 
-<style scoped>
-/* Add any styles you need here */
-</style>
+onMounted(() => {
+  updateTime();
+  timer = setInterval(updateTime, 1000);
+});
+
+onBeforeUnmount(() => {
+  if (timer) clearInterval(timer);
+});
+</script>
