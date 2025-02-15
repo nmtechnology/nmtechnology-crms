@@ -3,7 +3,6 @@
     <AddWorkorder class="mt-5" />
     <div class="text-center lg:col-start-8 lg:col-end-13 lg:row-start-1 lg:mt-9 xl:col-start-9">
       <Calendar :workOrders="workOrders" />
-      <Index class="mt-40" />
     </div>
   </div>
 </template>
@@ -12,7 +11,6 @@
 import { ref } from 'vue';
 import AddWorkorder from '@/Components/AddWorkorder.vue';
 import Calendar from '@/Components/Calendar.vue';
-import Index from './WorkOrders/Index.vue';
 import { usePage } from '@inertiajs/vue3';
 import GroqQuery from './GroqQuery.vue';
 
