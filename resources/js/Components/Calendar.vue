@@ -1,17 +1,18 @@
 <template>
   <FullCalendar :options="calendarOptions">
-    <template v-slot:eventContent='arg'>
+    <template v-slot:eventContent="arg">
       <b>{{ arg.event.title }}</b>
+      <b>{{ arg.event.extendedProps.description }}</b>
     </template>
   </FullCalendar>
 </template>
-  
+
 <script>
 import FullCalendar from '@fullcalendar/vue3'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import interactionPlugin from '@fullcalendar/interaction'
+import listPlugin from '@fullcalendar/list'
 
-        
 export default {
   components: {
     FullCalendar // make the <FullCalendar> tag available
@@ -19,13 +20,10 @@ export default {
   data() {
     return {
       calendarOptions: {
-        plugins: [ dayGridPlugin, interactionPlugin ],
-        initialView: 'dayGridMonth',
+        plugins: [dayGridPlugin, interactionPlugin, listPlugin], // an array of plugins
+        initialView: 'dayGridMonth', // the default view
         dateClick: this.handleDateClick,
-        events: [
-          { title: 'event 1', date: '2019-04-01' },
-          { title: 'event 2', date: '2019-04-02' }
-        ]
+        events: this.fetchEvents
       }
     }
   },
@@ -35,9 +33,8 @@ export default {
     }
   }
 }
-  
-  </script>
-  
-  <style scoped>
-  /* Add any styles you need here */
-  </style>
+</script>
+
+<style scoped>
+/* Add any styles you need here */
+</style>

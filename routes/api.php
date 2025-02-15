@@ -17,4 +17,4 @@ Route::get('/current-time', function () {
 });
 
 // // Add the new endpoint for GroqQuery
-// Route::get('/groq/query', [GroqController::class, 'query'])->name('groq.query');
+Route::post('groq/query', [GroqController::class, 'query'])->name('groq.query');
