@@ -12,8 +12,7 @@ class GroqController extends Controller
     {
         $query = $request->input('query');
         
-        try {
-            
+        
             $response = Http::withHeaders([
                 'Authorization' => 'Bearer ' . config('services.groqcloud.api_key'),
                 'Content-Type' => 'application/json',
@@ -35,11 +34,6 @@ class GroqController extends Controller
             return response()->json([
                 'response' => $response->json('choices.0.message.content'),
                 'work_orders' => $workOrders
-            ]);
-        } catch (\Exception $e) {
-            return response()->json([
-                'error' => 'Error processing query: ' . $e->getMessage()
-            ], 500);
-        }
+            ]); 
     }
 }

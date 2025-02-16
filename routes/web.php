@@ -41,11 +41,15 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::post('/api/work-orders', [WorkOrderController::class, 'store']);
+    Route::middleware('auth')->group(function () {
+        
+    });
 });
 
 Route::get('/users', function () {
     return new UserCollection(User::all());
 });
+Route::resource('customers', CustomerController::class);
 
 Route::resource('work-orders', WorkOrderController::class);
 

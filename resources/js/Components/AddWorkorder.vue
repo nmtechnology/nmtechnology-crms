@@ -25,6 +25,25 @@
                     <input type="datetime-local" v-model="form.scheduled_at" id="scheduled_at" class="mt-1 block w-full rounded-md bg-slate-800 border-gray-300 shadow-sm focus:border-white focus:ring-white sm:text-sm" required>
                   </div>
                   <div class="mb-4">
+                    <label for="price" class="block text-sm font-medium text-accent">Price</label>
+                    <input type="number" v-model="form.price" id="price" class="mt-1 block w-full rounded-md bg-slate-800 border-gray-300 shadow-sm focus:border-white focus:ring-white sm:text-sm" required>
+                  </div>
+                  <div class="mb-4">
+                    <label for="customer_id" class="block text-sm font-medium text-accent">Customer</label>
+                    <select v-model="form.customer_id" id="customer_id" class="mt-1 block w-full rounded-md bg-slate-800 border-gray-300 shadow-sm focus:border-white focus:ring-white sm:text-sm" required>
+                      <option disabled value="">Select a customer</option> <!-- Default option -->
+                      <option v-for="customer in customers" :key="customer.id" :value="customer.id">{{ customer.id }} | {{ customer.name }}</option>
+                    </select>
+                  </div>
+                  <div class="mb-4">
+                    <label for="status" class="block text-sm font-medium text-accent">Status</label>
+                    <select v-model="form.status" id="status" class="mt-1 block w-full rounded-md bg-slate-800 border-gray-300 shadow-sm focus:border-white focus:ring-white sm:text-sm" required>
+                      <option value="scheduled">Scheduled</option>
+                      <option value="in_progress">In Progress</option>
+                      <option value="completed">Completed</option>
+                    </select>
+                  </div>
+                  <div class="mb-4">
                     <label for="images" class="block text-sm font-medium text-accent">Attachments</label>
                     <input type="file" @change="handleFileUpload" id="images" class="mt-1 block w-full rounded-md bg-slate-800 border-gray-300 shadow-sm focus:border-white focus:ring-white sm:text-sm" multiple>
                   </div>
@@ -55,6 +74,7 @@
 
 <script>
 import { useForm } from '@inertiajs/vue3';
+import axios from 'axios';
 
 export default {
   data() {
@@ -64,13 +84,29 @@ export default {
         title: '',
         description: '',
         scheduled_at: '',
+        price: '',
+        customer_id: '', // Ensure this is an empty string initially
+        status: 'scheduled',
         images: [],
         notes: '',
         progress: null,
       }),
+      customers: [], // Corrected data property
     };
   },
+  mounted() {
+    this.fetchCustomers();
+  },
   methods: {
+    fetchCustomers() {
+      // Fetch the list of customers from the API
+      axios.get('/api/customers').then(response => {
+        this.customers = response.data;
+        console.log('Fetched customers:', this.customers); // Add console log
+      }).catch(error => {
+        console.error('Error fetching customers:', error);
+      });
+    },
     submitForm() {
       this.form.post('/api/work-orders', {
         onSuccess: () => {
@@ -80,6 +116,7 @@ export default {
         },
         onError: (errors) => {
           console.error('Error creating work order. Please try again:', errors);
+          alert('Error creating work order. Please try again: ' + JSON.stringify(errors));
         },
       });
     },
@@ -103,12 +140,12 @@ export default {
 }
 
 .btn-primary {
-  background-color: hsl(90, 100%, 50%);
+  background-color: hsl(40, 100%, 50%);
   color: white;
 }
 
 .btn-secondary {
-  background-color: #e5e7eb;
+  background-color: #ebeae5;
   color: #374151;
 }
 

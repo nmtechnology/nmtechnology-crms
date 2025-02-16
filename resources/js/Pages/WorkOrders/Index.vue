@@ -22,6 +22,8 @@
                     <th scope="col" class="sticky top-0 z-10 py-3.5 pl-4 pr-3 text-left text-2xl font-semibold text-accent sm:pl-0">Title</th>
                     <th scope="col" class="sticky top-0 z-10 px-3 py-3.5 text-left text-2xl font-semibold text-accent">Description</th>
                     <th scope="col" class="sticky top-0 z-10 px-3 py-3.5 text-left text-2xl font-semibold text-accent">Scheduled Time</th>
+                    <th scope="col" class="sticky top-0 z-10 px-3 py-3.5 text-left text-2xl font-semibold text-accent">Price</th>
+                    <th scope="col" class="sticky top-0 z-10 px-3 py-3.5 text-left text-2xl font-semibold text-accent">Customer ID</th>
                     <th scope="col" class="sticky top-0 z-10 px-3 py-3.5 text-left text-2xl font-semibold text-accent">Status</th>
                     <th scope="col" class="sticky top-0 z-10 py-3.5 pl-3 pr-4 sm:pr-0">
                       <span class="sr-only">Edit</span>
@@ -42,6 +44,12 @@
                     </td>
                     <td class="whitespace-nowrap px-3 py-5 text-sm text-accent">
                       <div class="text-green-400">{{ formatDate(workOrder.scheduled_at) }}</div>
+                    </td>
+                    <td class="whitespace-nowrap px-3 py-5 text-sm text-accent">
+                      <div class="text-green-400">{{ workOrder.price }}</div>
+                    </td>
+                    <td class="whitespace-nowrap px-3 py-5 text-sm text-accent">
+                      <div class="text-green-400">{{ workOrder.customer_id }}</div>
                     </td>
                     <td class="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
                       <span class="inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">{{ workOrder.status }}</span>
