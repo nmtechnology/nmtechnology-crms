@@ -12,7 +12,7 @@
       />
       <button 
         @click="submitQuery" 
-        class="border border-lime-500 text-green-500 px-6 py-2 rounded-md hover:bg-green-500 hover:text-white transition-colors duration-200"
+        class="border border-green-500 text-green-500 px-6 py-2 rounded-md hover:bg-green-500 hover:text-white transition-colors duration-200"
         :disabled="!query"
       >
         Ask
@@ -21,7 +21,7 @@
 
     <div v-for="(resp, index) in responses" :key="index" class="mt-4 border border-accent rounded-md p-4">
       <h2 class="font-bold mb-2 text-accent">Jerry's Response {{ responses.length - index }}:</h2>
-      <p class=" text-lime-300">{{ resp.text }}</p>
+      <p class="text-green-400">{{ resp.text }}</p>
       <p class="text-gray-500 text-sm">{{ resp.timestamp }}</p>
     </div>
 

@@ -26,19 +26,28 @@ class WorkOrderController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'user_id' => 'required|exists:users,id',
+            'customer_id' => 'required|exists:customers,id',
             'title' => 'required|string|max:255',
             'description' => 'required|string',
             'scheduled_at' => 'required|date',
-            'images.*' => 'nullable|file|mimes:jpg,jpeg,png,bmp,gif,svg,webp,pdf,heic|max:2048',
+            'price' => 'required|numeric',
+            'status' => 'required|string|in:pending,scheduled,completed,cancelled',
+            'file_attachments.*' => 'nullable|file|mimes:pdf,jpg|max:2048',
             'notes' => 'nullable|string',
+            
+            
         ]);
 
         $workOrder = new WorkOrder();
+        $workOrder->user_id = auth()->id();
+        $workOrder->customer_id = $request->customer_id;
         $workOrder->title = $request->title;
         $workOrder->description = $request->description;
         $workOrder->scheduled_at = $request->scheduled_at;
-        $workOrder->status = 'scheduled';
-        $workOrder->user_id = auth()->id();
+        $workOrder->price = $request->price;
+        $workOrder->status = $request->status;
+        $workOrder->file_attachments = $request->file_attachments;
         $workOrder->notes = $request->notes;
 
         if ($request->hasFile('images')) {
@@ -81,11 +90,14 @@ class WorkOrderController extends Controller
         ]);
 
         $workOrder = WorkOrder::findOrFail($id);
+        $workOrder->user_id = auth()->id();
+        $workOrder->customer_id = $request->customer_id;
         $workOrder->title = $request->title;
         $workOrder->description = $request->description;
         $workOrder->scheduled_at = $request->scheduled_at;
-        $workOrder->status = 'scheduled';
-        $workOrder->user_id = auth()->id();
+        $workOrder->price = $request->price;
+        $workOrder->status = $request->status;
+        $workOrder->file_attachments = $request->file_attachments;
         $workOrder->notes = $request->notes;
 
         if ($request->hasFile('images')) {
@@ -115,6 +127,7 @@ class WorkOrderController extends Controller
     {
         $workOrder = WorkOrder::findOrFail($id);
         $newWorkOrder = $workOrder->replicate();
+        $newWorkOrder->user_id = auth()->id();
         $newWorkOrder->title = $workOrder->title . ' (Copy)';
         $newWorkOrder->save();
 

@@ -132,4 +132,3 @@ const canRegister = ref(true); // Set to true or false based on your application
       </div>
     </div>
   </template>
-
