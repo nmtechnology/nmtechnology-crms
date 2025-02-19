@@ -8,11 +8,12 @@ use Illuminate\Http\Request;
 class CustomerController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of the customers.
      */
     public function index()
     {
-        //
+        // Fetch all customers and return as JSON
+        return response()->json(Customer::all());
     }
 
     /**
@@ -20,7 +21,7 @@ class CustomerController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**

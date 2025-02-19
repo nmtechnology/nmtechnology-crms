@@ -41,6 +41,20 @@ class WorkOrder extends Model
         'Cancelled',
     ];
 
+    // Define the NM Technology Customers Options
+    const CUSTOMERS = [
+        'APS',
+        'Barrister Global',
+        'DarAlIslam',
+        'Field Nation',
+        'Navco',
+        'NEW CUSTOMER',
+        'NuTech National',
+        'Telaid',
+        'TKH Security',
+        'Work Market',
+    ];
+
     // Define the relationship with the User model
     public function user()
     {

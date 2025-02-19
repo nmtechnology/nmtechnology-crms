@@ -3,6 +3,7 @@
     <div class="sm:flex sm:items-center outline text-accent rounded-lg">
       <div class="sm:flex-auto">
         <h1 class="text-2xl font-bold mb-4 text-accent p-2">Active Work Orders</h1>
+        <GroqQuery class="p-6" />
         <p class="mt-2 text-sm text-green-400 p-4">A list of all the work orders in your account including their title, description, and status.</p>
       </div>
       <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
@@ -23,6 +24,11 @@
                     <th scope="col" class="sticky top-0 z-10 px-3 py-3.5 text-left text-2xl font-semibold text-accent">Description</th>
                     <th scope="col" class="sticky top-0 z-10 px-3 py-3.5 text-left text-2xl font-semibold text-accent">Scheduled Time</th>
                     <th scope="col" class="sticky top-0 z-10 px-3 py-3.5 text-left text-2xl font-semibold text-accent">Status</th>
+                    <th scope="col" class="sticky top-0 z-10 px-3 py-3.5 text-left text-2xl font-semibold text-accent">User</th>
+                    <th scope="col" class="sticky top-0 z-10 px-3 py-3.5 text-left text-2xl font-semibold text-accent">Images</th>
+                    <th scope="col" class="sticky top-0 z-10 px-3 py-3.5 text-left text-2xl font-semibold text-accent">Notes</th>
+                    <th scope="col" class="sticky top-0 z-10 px-3 py-3.5 text-left text-2xl font-semibold text-accent">Price</th>
+                    <th scope="col" class="sticky top-0 z-10 px-3 py-3.5 text-left text-2xl font-semibold text-accent">Customer</th>
                     <th scope="col" class="sticky top-0 z-10 py-3.5 pl-3 pr-4 sm:pr-0">
                       <span class="sr-only">Edit</span>
                     </th>
@@ -46,6 +52,21 @@
                     <td class="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
                       <span class="inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">{{ workOrder.status }}</span>
                     </td>
+                    <td class="whitespace-nowrap px-3 py-5 text-sm text-accent">
+                      <div class="text-accent-300">{{ workOrder.user?.name || 'N/A' }}</div>
+                    </td>
+                    <td class="whitespace-nowrap px-3 py-5 text-sm text-accent">
+                      <div class="text-accent-300">{{ workOrder.images?.join(', ') || 'N/A' }}</div>
+                    </td>
+                    <td class="whitespace-nowrap px-3 py-5 text-sm text-accent">
+                      <div class="text-accent-300">{{ workOrder.notes }}</div>
+                    </td>
+                    <td class="whitespace-nowrap px-3 py-5 text-sm text-accent">
+                      <div class="text-accent-300">{{ workOrder.price }}</div>
+                    </td>
+                    <td class="whitespace-nowrap px-3 py-5 text-sm text-accent">
+                      <div class="text-accent-300">{{ workOrder.customer?.name || 'N/A' }}</div>
+                    </td>
                     <td class="relative whitespace-nowrap py-5 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
                       <button @click="openModal(workOrder)" class="text-warning hover:text-warning-900">
                         View<span class="sr-only">, {{ workOrder.title }}</span>
@@ -65,13 +86,14 @@
 
 <script>
 import { ref } from 'vue';
-import { format } from 'date-fns';
+import format from 'date-fns/format';
 import { usePage } from '@inertiajs/vue3';
 import AddWorkorder from '@/Components/AddWorkorder.vue';
 import ApplicationLogo from '@/Components/ApplicationLogo.vue';
 import Alert from '@/Components/alert.vue';
 import AppLayout from '@/Layouts/AppLayout.vue';
 import WorkOrder from './WorkOrder.vue';
+import GroqQuery from '../GroqQuery.vue';
 
 export default {
   layout: AppLayout,
@@ -81,6 +103,7 @@ export default {
     Alert,
     ApplicationLogo,
     WorkOrder,
+    GroqQuery,
   },
   setup() {
     const { props } = usePage();
@@ -99,7 +122,17 @@ export default {
     };
 
     const formatDate = (date) => {
-      return format(new Date(date), 'MMMM dd, yyyy hh:mm a');
+      if (!date) return 'Invalid date';
+      try {
+        const parsedDate = new Date(date);
+        if (isNaN(parsedDate)) {
+          throw new Error('Invalid date');
+        }
+        return format(parsedDate, 'MMMM dd, yyyy hh:mm a');
+      } catch (error) {
+        console.error('Invalid date:', date);
+        return 'Invalid date';
+      }
     };
 
     return {

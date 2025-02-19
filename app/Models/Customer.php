@@ -12,7 +12,6 @@ class Customer extends Model
     // Define the attributes that are mass assignable
     protected $fillable = [
         'name',
-        'date_time_added',
         'poc_email',
         'phone_number',
     ];

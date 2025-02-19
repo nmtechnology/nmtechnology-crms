@@ -96,6 +96,7 @@ async function fetchEvents() {
     console.error('Error fetching work orders:', error);
     if (error.response && error.response.data) {
       console.error('Validation errors:', error.response.data.errors);
+      // Handle validation errors if needed
     }
   }
 }

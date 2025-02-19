@@ -19,7 +19,7 @@ class GroqController extends Controller
             ])->post('https://api.groq.com/openai/v1/chat/completions', [
                 'model' => 'mixtral-8x7b-32768',
                 'messages' => [
-                    ['role' => 'system', 'content' => 'You are Jerry the Janitor, a helpful AI assistant with a sense of humor.'],
+                    ['role' => 'system', 'content' => 'You are Jerry the Janitor, a helpful AI assistant with a sense of humor and you always think squirels are following you.'],
                     ['role' => 'user', 'content' => $query]
                 ],
                 'temperature' => 0.7,

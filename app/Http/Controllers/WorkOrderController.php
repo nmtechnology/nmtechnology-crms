@@ -25,43 +25,41 @@ class WorkOrderController extends Controller
     // Store a newly created resource in storage
     public function store(Request $request)
     {
-        $request->validate([
+        $validatedData = $request->validate([
             'user_id' => 'required|exists:users,id',
-            'customer_id' => 'required|exists:customers,id',
+            'customer_id' => 'required|string|max:255',
             'title' => 'required|string|max:255',
             'description' => 'required|string',
-            'scheduled_at' => 'required|date',
+            'date_time' => 'required|date',
             'price' => 'required|numeric',
-            'status' => 'required|string|in:pending,scheduled,completed,cancelled',
+            'status' => 'required|string|in:Scheduled,In Progress,Part/Return,Complete,Cancelled',
             'file_attachments.*' => 'nullable|file|mimes:pdf,jpg|max:2048',
             'notes' => 'nullable|string',
-            
-            
         ]);
 
         $workOrder = new WorkOrder();
         $workOrder->user_id = auth()->id();
-        $workOrder->customer_id = $request->customer_id;
-        $workOrder->title = $request->title;
-        $workOrder->description = $request->description;
-        $workOrder->scheduled_at = $request->scheduled_at;
-        $workOrder->price = $request->price;
-        $workOrder->status = $request->status;
-        $workOrder->file_attachments = $request->file_attachments;
-        $workOrder->notes = $request->notes;
+        $workOrder->customer_id = $validatedData['customer_id'];
+        $workOrder->title = $validatedData['title'];
+        $workOrder->description = $validatedData['description'];
+        $workOrder->date_time = $validatedData['date_time'];
+        $workOrder->price = $validatedData['price'];
+        $workOrder->status = $validatedData['status'];
+        $workOrder->notes = $validatedData['notes'];
 
-        if ($request->hasFile('images')) {
-            $images = [];
-            foreach ($request->file('images') as $image) {
-                $path = $image->store('work_orders', 'public');
-                $images[] = $path;
+        if ($request->hasFile('file_attachments')) {
+            $fileAttachments = [];
+            foreach ($request->file('file_attachments') as $file) {
+                $path = $file->store('work_orders', 'public');
+                $fileAttachments[] = $path;
             }
-            $workOrder->images = json_encode($images);
+            $workOrder->file_attachments = json_encode($fileAttachments);
         }
 
         $workOrder->save();
 
-        return redirect()->route('dashboard')->with('message', 'Work order created successfully');
+        $userName = auth()->user()->name;
+        return redirect(route('dashboard', ['absolute' => true]))->with('message', "Work order created successfully by $userName");
     }
 
     // Display the specified resource
@@ -82,6 +80,11 @@ class WorkOrderController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
+            'user_id' => 'required|exists:users,id',
+            'customer_id' => 'required|exists:customers,id',
+            'price' => 'required|numeric',
+            'status' => 'required|string|in:Scheduled,In Progress,Part Needed,Complete,Cancelled',
+            'file_attachments.*' => 'nullable|file|mimes:pdf,jpg|max:2048',
             'title' => 'required|string|max:255',
             'description' => 'required|string',
             'scheduled_at' => 'required|date',
@@ -91,14 +94,13 @@ class WorkOrderController extends Controller
 
         $workOrder = WorkOrder::findOrFail($id);
         $workOrder->user_id = auth()->id();
-        $workOrder->customer_id = $request->customer_id;
-        $workOrder->title = $request->title;
-        $workOrder->description = $request->description;
-        $workOrder->scheduled_at = $request->scheduled_at;
-        $workOrder->price = $request->price;
-        $workOrder->status = $request->status;
-        $workOrder->file_attachments = $request->file_attachments;
-        $workOrder->notes = $request->notes;
+        $workOrder->customer_name = $validatedData['customer_name'];
+        $workOrder->title = $validatedData['title'];
+        $workOrder->description = $validatedData['description'];
+        $workOrder->date_time = $validatedData['date_time'];
+        $workOrder->price = $validatedData['price'];
+        $workOrder->status = $validatedData['status'];
+        $workOrder->notes = $validatedData['notes'];
 
         if ($request->hasFile('images')) {
             $images = [];
@@ -111,7 +113,8 @@ class WorkOrderController extends Controller
 
         $workOrder->save();
 
-        return redirect()->route('dashboard')->with('message', 'Work order updated successfully');
+        $userName = auth()->user()->name;
+        return redirect()->route('dashboard')->with('message', "Work order updated successfully by $userName");
     }
 
     // Remove the specified resource from storage
@@ -120,8 +123,9 @@ class WorkOrderController extends Controller
         $workOrder = WorkOrder::findOrFail($id);
         $workOrder->delete();
 
-        return redirect()->route('dashboard')->with('message', 'Work order deleted successfully');
+        return redirect()->route('dashboard')->with('message', "Work order deleted successfully by $userName");
     }
+
     // Duplicate the specified resource
     public function duplicate($id)
     {
@@ -131,6 +135,6 @@ class WorkOrderController extends Controller
         $newWorkOrder->title = $workOrder->title . ' (Copy)';
         $newWorkOrder->save();
 
-        return redirect()->route('dashboard')->with('message', 'Work order duplicated successfully');
+        return redirect()->route('dashboard')->with('message', "Work order duplicated successfully by $userName");
     }
 }

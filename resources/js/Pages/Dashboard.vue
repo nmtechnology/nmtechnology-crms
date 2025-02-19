@@ -7,6 +7,7 @@
       <Calendar :workOrders="workOrders" />
       <div class="text-center lg:col-start-8 lg:col-end-13 lg:row-start-1 lg:mt-9 xl:col-start-9">
         <GroqQuery />
+        <GrokSolutions />
       </div>
     </div>
   </template>
@@ -16,6 +17,7 @@
   import Calendar from '@/Components/Calendar.vue'
   import { usePage } from '@inertiajs/vue3';
   import GroqQuery from './GroqQuery.vue';
+  import GrokSolutions from './GrokSolutions.vue';
   import Alert from '@/Components/alert.vue';
   
   const { props } = usePage();
@@ -24,6 +26,7 @@
   
   <script>
   import AppLayout from '@/Layouts/AppLayout.vue';
+import GrokSolutions from './GrokSolutions.vue';
   
   export default {
     layout: AppLayout,

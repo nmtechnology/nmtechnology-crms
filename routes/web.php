@@ -7,6 +7,8 @@ use Inertia\Inertia;
 use App\Http\Controllers\TimeController;
 use App\Http\Controllers\WorkOrderController;
 use App\Http\Controllers\GroqController;
+use App\Http\Controllers\GrokController;
+use App\Http\Controllers\CustomerController;
 
 
 
@@ -26,6 +28,7 @@ Route::get('/', function () {
 });
 
 Route::post('/api/groq/query', [GroqController::class, 'query']);
+Route::post('/grok/solutions', [GrokController::class, 'solutions']);
 
 Route::get('/dashboard', function () {
     sleep(2);

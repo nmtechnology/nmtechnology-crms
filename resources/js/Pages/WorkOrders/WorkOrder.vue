@@ -45,7 +45,7 @@
 </template>
 
 <script>
-import { ref, watch } from 'vue';
+import { watch } from 'vue';
 import { format } from 'date-fns';
 
 export default {
@@ -62,7 +62,17 @@ export default {
   },
   setup(props, { emit }) {
     const formatDate = (date) => {
-      return format(new Date(date), 'MMMM dd, yyyy hh:mm a');
+      if (!date) return 'Invalid date';
+      try {
+        const parsedDate = new Date(date);
+        if (isNaN(parsedDate)) {
+          throw new Error('Invalid date');
+        }
+        return format(parsedDate, 'MMMM dd, yyyy hh:mm a');
+      } catch (error) {
+        console.error('Invalid date:', date);
+        return 'Invalid date';
+      }
     };
 
     const closeModal = () => {

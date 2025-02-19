@@ -14,7 +14,7 @@ return new class extends Migration
     Schema::create('work_orders', function (Blueprint $table) {
         $table->id();
         $table->foreignId('user_id')->constrained()->onDelete('cascade');
-        $table->foreignId('customer_id')->constrained()->onDelete('cascade');
+        $table->string('customer_id');
         $table->string('title');
         $table->text('description');
         $table->dateTime('date_time');

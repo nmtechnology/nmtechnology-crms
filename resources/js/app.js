@@ -20,14 +20,18 @@ createInertiaApp({
     return { ...page, layout: page.layout || AppLayout };
   },
   setup({ el, App, props, plugin }) {
-    createApp({ render: () => h(App, props) })
-      .use(plugin)
-      .use(ZiggyVue)
-      .mount(el);
+    try {
+      createApp({ render: () => h(App, props) })
+        .use(plugin)
+        .use(ZiggyVue)
+        .mount(el);
+    } catch (error) {
+      console.error('Error during app setup:', error);
+    }
   },
   progress: {
     delay: 250,
-    color: '#b1ff16',
+    color: '#90ff00',
     includeCSS: true,
     showSpinner: false,
   },
